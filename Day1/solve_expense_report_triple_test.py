@@ -24,11 +24,17 @@ def test_zero_and_target_value():
     expenses = pd.DataFrame({2020, 0, 0, 145, 897})
     assert(solveExpenseReportTriple(expenses, 2020) == 0)
 
+# test what happens, when the list has only two elements
+def test_list_only_two_elements():
+    expenses = pd.DataFrame({548, 0})
+    assert(solveExpenseReportTriple(expenses, 2020) == -1)
+
 
 # execute the tests
 test_normal()
 test_no_matching_values()
 test_empty_list()
 test_zero_and_target_value()
+test_list_only_two_elements()
 
 print("all tests passed")

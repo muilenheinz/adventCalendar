@@ -11,28 +11,22 @@ def loadInput():
 # numbers together"
 # @_expenses: Pandas Data Frame of the expense report
 # @_target_value: value the two found numbers should add up to
-def getNumbersAddingUpToTargetValue(_expsens, _target_value):
-    global target_value
-
-    if _expsens.empty:
+def getNumbersAddingUpToTargetValue(_expenses, _target_value):
+    if _expenses.size < 3:
         return -1
 
-    for id, expense_row in _expsens.iterrows():
+    for id, expense_row in _expenses.iterrows():
         current_expense = expense_row.loc[0]
 
-        # calc the number which would add up to target value with current_expense
-        second_summand = target_value - current_expense
-        # print(second_summand , "=", target_value, " - ", current_expense)
+        # calc the number which would add up to target_value with current_expense
+        second_summand = _target_value - current_expense
 
-        # when the value is negative return an error (-1), since negative expenses are not very likely to happen
-        if second_summand < 0:
-            return -1
-
-        # search for the second summand in the DataFrame of expenses
-        foundValue = _expsens[_expsens.eq(second_summand).any(1)]
-        if not foundValue.empty:
-            # only the first solution is returned, if there are others they are simply ignored
-            return current_expense * second_summand
+        if second_summand > -1:
+            # search for the second summand in the DataFrame of expenses
+            foundValue = _expenses[_expenses.eq(second_summand).any(1)]
+            if not foundValue.empty:
+                # only the first solution is returned, if there are others they are simply ignored
+                return current_expense * second_summand
 
     # no result found
     return -1
@@ -41,7 +35,7 @@ expenses = loadInput()
 result = getNumbersAddingUpToTargetValue(expenses, target_value)
 
 if result == -1:
-    print("No value found")
+    print("No result found for two values")
 else:
-    print ("result is: {0}".format(result))
+    print ("result for multiplication of two values, which add up to {0} is: {1}".format(target_value, result))
 
