@@ -31,3 +31,5 @@ test_normal()
 test_no_matching_values()
 test_empty_list()
 test_zero_and_target_value()
+
+print("all tests passed")
