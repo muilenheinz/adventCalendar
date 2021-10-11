@@ -31,6 +31,7 @@ def getNumbersAddingUpToTargetValue(_expsens, _target_value):
         # search for the second summand in the DataFrame of expenses
         foundValue = _expsens[_expsens.eq(second_summand).any(1)]
         if not foundValue.empty:
+            # only the first solution is returned, if there are others they are simply ignored
             return current_expense * second_summand
 
     # no result found
