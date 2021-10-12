@@ -77,9 +77,11 @@ def traverseMultiplePathes():
     for path in pathes:
         result *= findTobogganPath(path)
 
-    print("result is ", result)
+    print("result for task 2 is ", result)
 
 loadInput()
-traverseMultiplePathes()
 # execution for task 1
 findTobogganPath([1, 3])
+
+#execution for task 2
+traverseMultiplePathes()

@@ -83,9 +83,9 @@ def getMySeatId(_boardingPasses):
 boardingPasses = loadInput()
 
 # task 1
-# res = getHighestSeatId(boardingPasses)
-# print("Highest SeatId is", res)
+res = getHighestSeatId(boardingPasses)
+print("(Task1) Highest SeatId is", res)
 
 # task 2
 res = getMySeatId(boardingPasses)
-print("My seat id is: ", res)
+print("(Task2) My seat id is: ", res)
