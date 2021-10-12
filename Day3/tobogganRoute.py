@@ -15,20 +15,26 @@ def loadInput():
     landscape_input = data
     landscape = data
 
-def findTobogganPath():
+def findTobogganPath(_direction):
     global landscape
 
     # start at the top left corner of the input (row, col)
     position = [0, 0]
     treesHit = 0
 
-    while position[0] < len(landscape) - 1:
+    # simulation of a do - while loop
+    while True:
         # calculate the next position
-        position[0] += 1
-        position[1] += 3
+        position[0] += _direction[0]
+        position[1] += _direction[1]
 
-        treesHit += getIsTreeAtPosition(position)
+        if position[0] < len(landscape):
+            treesHit += getIsTreeAtPosition(position)
+        else:
+            break
+
     print(treesHit, "trees hit")
+    return treesHit
 
 
 # returns whether or not there is a tree at the given position
@@ -39,7 +45,7 @@ def getIsTreeAtPosition(_position):
     # the input is given as a pattern, which is said to repeat endlessly.
     # Therefore, when the (col-)index runs out of the landscape array, append a new repetition of the original data
     if _position[1] > len(landscape[_position[0]][0]) - 1:
-        landscape = repeatLandscape()
+        repeatLandscape()
 
     # get the item located at the relevant position
     row = landscape[_position[0]][0]
@@ -60,7 +66,20 @@ def repeatLandscape():
     res = list(sub1 + sub2 for sub1, sub2 in zip(landscape_input, landscape))
 
     # concat the old and new landscape strings in each sublist
-    return list(map(lambda list: ["".join(list)], res))
+    landscape = list(map(lambda list: ["".join(list)], res))
+
+# part2 of the task: check each slope
+def traverseMultiplePathes():
+    global landscape, landscape_input
+    pathes = [[1, 1], [1, 3], [1, 5], [1, 7], [2, 1]]
+    result = 1
+
+    for path in pathes:
+        result *= findTobogganPath(path)
+
+    print("result is ", result)
 
 loadInput()
-findTobogganPath()
+traverseMultiplePathes()
+# execution for task 1
+findTobogganPath([1, 3])
