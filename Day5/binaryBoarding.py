@@ -1,6 +1,6 @@
 import csv
 
-# loads the input data file given as "password_db.csv" in this dir
+# loads the input data file given as "boardingPasses.csv" in this dir
 def loadInput():
 
     with open('boardingPasses.csv', newline='') as f:
@@ -59,6 +59,33 @@ def getHighestSeatId(_boardingPasses):
 
     return maxSeatId
 
+# get the empty seat, which is mine
+# _@boarding_passes: 2-dimensional list of boarding passes in the form: [['FBBBFFFRLL'], ['FBBFBFBRRL'], ['FBFFFFFRRL']]
+def getMySeatId(_boardingPasses):
+    seatIds = []
+    for boardingpass in _boardingPasses:
+        seatId = calcSeatID(boardingpass[0])
+        seatIds.append(seatId)
+
+    # since the ids are contiguous, sum them them up and calc the sum of all numbers from min to max id (which then
+    # includes the id which we search for). The difference between them is the searched number
+    seatIds.sort()
+    seatSum = sum(seatIds)
+
+    # since there are a few seats missing in the front and back, get the first and last seat id
+    firstSeatId = seatIds[0]
+    lastSeatId = seatIds[len(seatIds) - 1]
+
+    # lastSeatId +1 since range does not include the second number, but ranges to it - 1
+    sumOfOccupiedPlacesIds = sum(range(firstSeatId, lastSeatId + 1))
+    return sumOfOccupiedPlacesIds - seatSum
+
 boardingPasses = loadInput()
-res = getHighestSeatId(boardingPasses)
-print("Highest SeatId is", res)
+
+# task 1
+# res = getHighestSeatId(boardingPasses)
+# print("Highest SeatId is", res)
+
+# task 2
+res = getMySeatId(boardingPasses)
+print("My seat id is: ", res)
